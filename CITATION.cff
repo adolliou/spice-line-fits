@@ -1,0 +1,17 @@
+abstract: Codes for spectral line fitting of Solar Orbiter SPICE
+authors:
+- family-names: jeplowman
+cff-version: 1.2.0
+date-released: '2025-05-30'
+doi: 10.5281/zenodo.15557970
+identifiers:
+- type: swh
+  value: swh:1:dir:202394eb6bb45bde77c1a4e4cbdc45e4504a43a5;origin=https://doi.org/10.5281/zenodo.15557969;visit=swh:1:snp:1fe898a11f08aa3b3afbbdfe0b31ac704eec0de3;anchor=swh:1:rel:dd072b5ae71cd5f41eececf91f240cebce3d010c;path=jeplowman-spice-line-fits-fb499a9
+license:
+- bsd-3-clause
+message: If you use this software, please cite it using the metadata from this file.
+repository-code: https://github.com/jeplowman/spice-line-fits/tree/v0.0.0
+title: 'jeplowman/spice-line-fits: First release to coincide with initial submission
+  of method paper'
+type: software
+version: v0.0.0
