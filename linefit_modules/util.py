@@ -1,8 +1,6 @@
 # Utility modules for SPICE line fitting and skew-based correction to PSF
 # Doppler artifacts.
 import copy, os, numpy as np
-from scipy.io import readsav
-import sys
 
 # Perform a median filter on n-dimensional data with an elliptical footprint of axis radii radius
 # (or using optional input keyword 'footprint'), while masking out specified pixels/elements of the array

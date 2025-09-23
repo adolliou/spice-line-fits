@@ -7,11 +7,8 @@
 # after a linear trend has been removed. See example notebook for usage.
 
 import os, copy, numpy as np, matplotlib.pyplot as plt
-from scipy.optimize import least_squares
-from skew_correction import skew_correct, deskew_linefit_window, full_correction
-from linefit_leastsquares import lsq_fitter, check_for_waves
-from util import get_mask_errs, get_spice_err, get_spice_data_yrange, make_yrange_check_plot
-from linefit_storage import linefits
+from .skew_correction import full_correction
+from .linefit_leastsquares import lsq_fitter, check_for_waves
 from astropy.io import fits
 
 def simple_lls(dat, err, funcs_in): # Simple LLS fit of funcs with linear coeffs to data

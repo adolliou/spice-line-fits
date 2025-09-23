@@ -6,8 +6,8 @@ import copy, numpy as np, astropy.units as u
 from astropy.nddata import NDData
 from scipy.interpolate import RegularGridInterpolator, LinearNDInterpolator as lndi
 from linefit_leastsquares import lsq_fitter, check_for_waves
-from util import get_mask_errs, get_spice_err, get_spice_data_yrange, make_yrange_check_plot
-from linefit_storage import linefits
+from .util import get_mask_errs, get_spice_err, get_spice_data_yrange, make_yrange_check_plot
+from .linefit_storage import linefits
 
 default_bin_fac = [3,3] # How much to bin up when interpolating. Large values result in slightly higher quality but take longer.
 
