@@ -131,7 +131,7 @@ def make_yrange_check_plot(spice_dat, spice_mask, spice_hdr, ymin, ymax, band1_y
 
 	asp1 = np.diff(axes[1].get_xlim())[0] / np.diff(axes[1].get_ylim())[0]
 	asp0 = np.diff(axes[0].get_xlim())[0] / np.diff(axes[0].get_ylim())[0]
-	axes[0].set_aspect(spice_hdr['CDELT2']/spice_hdr['CDELT1']*asp0/asp1)
+	axes[0].set_aspect(spice_hdr['CDELT2']/spice_hdr['CDELT1']*np.abs(asp0/asp1))
 	
 	axes[2].set(title='Fittable pixel mask')
 	axes[2].imshow(spice_mask.T,aspect=spice_hdr['CDELT2']/spice_hdr['CDELT1'])
