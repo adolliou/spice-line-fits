@@ -1,6 +1,6 @@
 # Utility modules for SPICE line fitting and skew-based correction to PSF
 # Doppler artifacts.
-import copy, os, pickle, resource, numpy as np
+import copy, os, numpy as np
 from scipy.io import readsav
 import sys
 
