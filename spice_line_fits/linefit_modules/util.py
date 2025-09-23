@@ -104,7 +104,7 @@ def get_spice_data_yrange(spice_dat_in, window_safe_radius=288, band_separation=
 
 # Make a figure to check if the main FOV y range estimation is correct:
 def make_yrange_check_plot(spice_dat, spice_mask, spice_hdr, ymin, ymax, band1_ymin, band1_ymax, 
-							band2_ymin, band2_ymax, snr_windowed, snr_cube, plot_dir=None):
+							band2_ymin, band2_ymax, snr_windowed, snr_cube, plot_dir):
 	import matplotlib.pyplot as plt
 	spice_err = get_spice_err(spice_dat, spice_hdr, verbose=False)
 	snr = np.nansum(spice_dat**2/spice_err**2,axis=2)

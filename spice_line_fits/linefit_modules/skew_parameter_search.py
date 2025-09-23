@@ -10,6 +10,8 @@ import os, copy, numpy as np, matplotlib.pyplot as plt
 from .skew_correction import full_correction
 from .linefit_leastsquares import lsq_fitter, check_for_waves
 from astropy.io import fits
+from pathlib import Path
+
 
 def simple_lls(dat, err, funcs_in): # Simple LLS fit of funcs with linear coeffs to data
 	nf = len(funcs_in)
@@ -232,12 +234,22 @@ def refine_points(shift_vars, xgrange, ygrange, ngx, ngy, npts_refine, min_input
 # yrange_plots: diagnostic plots to see if the y range of the observation window is correctly selected
 # figs: Contains the final plot showing goodness of fit as function of x and y shift
 def search_spice_window(filename, win_name, xl=-5, yl=-5, xh=5, yh=5, n0=5, n1=11, n2=31, 
-			n_refine=20, save_dir='../spice_shift_vars/', linelist=None, 
+			n_refine=20, save_dir=None, linelist=None, 
 			fitter=lsq_fitter, nthreads=8):
 
-	yrange_plot_dir = os.path.join(save_dir,'yrange_plots')
-	shift_save_dir = os.path.join(save_dir,'save')
-	shift_plot_dir = os.path.join(save_dir,'figs')
+	if save_dir is not None:
+		yrange_plot_dir = os.path.join(save_dir,'yrange_plots') 
+		shift_save_dir =  os.path.join(save_dir,'save')
+		shift_plot_dir =  os.path.join(save_dir,'figs')
+
+		Path(yrange_plot_dir).mkdir(parents=False, exist_ok=True)
+		Path(shift_save_dir ).mkdir(parents=False, exist_ok=True)
+		Path(shift_plot_dir ).mkdir(parents=False, exist_ok=True)
+	else:
+		yrange_plot_dir = None
+		shift_save_dir = None
+		shift_plot_dir = None
+
 
 	hdul = fits.open(filename)
 	spice_dat, spice_hdr = hdul[win_name].data[0], hdul[win_name].header
