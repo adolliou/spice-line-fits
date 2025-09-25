@@ -1,6 +1,7 @@
 import copy, numpy as np, matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 from .skew_parameter_search import detrend_dopp
+import matplotlib as mpl
 
 def color_dopp_img(dopp,vmin,vmax,mask,gfac=1.0/2.2):
     dscal = mask*np.clip(2*(dopp-(vmin+vmax)*0.5)/(vmax-vmin),-1,1)
@@ -34,10 +35,16 @@ def doppler_plot(linefits,dopp_err_thold=0.025, axis=None, cbaxis=None, doppmin=
 	dopp_errmod = np.sign(dopp_errmod)*np.clip(np.abs(dopp_errmod)-np.abs(1.0*dopp_err),0,None)+dopp_center
     
 	if(ymax is None): ymax = dopp_errmod.shape[1]
-	axes[0].imshow(color_dopp_img(dopp_errmod[:,ymin:ymax].T, dopp_center+doppmin, dopp_center+doppmax, dopp_err_falloff[:,ymin:ymax].T), 
-				aspect = metadat['CDELT2']/metadat['CDELT1'], origin="lower", interpolation="none")
-	if(cbaxis is not None):
-		cbar_dopp_img(cbaxis, doppmin, doppmax, unit=metadat['BUNIT'])
+	# if(ymax is None): ymax = dopp_errmod.shape[1]
+	# axes[0].imshow(color_dopp_img(dopp_errmod[:,ymin:ymax].T, dopp_center+doppmin, dopp_center+doppmax, dopp_err_falloff[:,ymin:ymax].T), aspect = metadat['CDELT2']/metadat['CDELT1'])
+	norm = mpl.colors.CenteredNorm(vcenter=0, halfrange=0.0075)
+	im = axes[0].imshow(dopp_errmod, origin="lower", interpolation="none", norm=norm, aspect = metadat['CDELT2']/metadat['CDELT1'])
+	fig.colorbar(im, cax=cbaxis, label=metadat['BUNIT'])
+
+	# axes[0].imshow(color_dopp_img(dopp_errmod[:,ymin:ymax].T, dopp_center+doppmin, dopp_center+doppmax, dopp_err_falloff[:,ymin:ymax].T), 
+	# 			aspect = metadat['CDELT2']/metadat['CDELT1'], origin="lower", interpolation="none")
+	# if(cbaxis is not None):
+	# 	cbar_dopp_img(cbaxis, doppmin, doppmax, unit=metadat['BUNIT'])
 
 def amplitude_plot(linefits, axis=None, cbaxis=None, max_amp=None, ymin=0, ymax=None):
 	if(axis is None):
