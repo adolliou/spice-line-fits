@@ -65,14 +65,14 @@ def doppler_plot(linefits,dopp_err_thold=0.025, axis=None, cbaxis=None, doppmin=
 	dopp_center = np.median(dopp_detrend[dopp_err_mask])
 	dopp_err_falloff = (dopp_err > 0)*np.clip(err_thold/dopp_err,None,1)**2
     
-	dopp_errmod = copy.deepcopy(dopp_detrend)-dopp_center
-	dopp_errmod = np.sign(dopp_errmod)*np.clip(np.abs(dopp_errmod)-np.abs(1.0*dopp_err),0,None)+dopp_center
+	dopp_errmod = copy.deepcopy(dopp_detrend) - dopp_center
+	# dopp_errmod = np.sign(dopp_errmod)*np.clip(np.abs(dopp_errmod)-np.abs(1.0*dopp_err),0,None)+dopp_center
     
 	if(ymax is None): ymax = dopp_errmod.shape[1]
 	# if(ymax is None): ymax = dopp_errmod.shape[1]
 	# axes[0].imshow(color_dopp_img(dopp_errmod[:,ymin:ymax].T, dopp_center+doppmin, dopp_center+doppmax, dopp_err_falloff[:,ymin:ymax].T), aspect = metadat['CDELT2']/metadat['CDELT1'])
 	norm = mpl.colors.CenteredNorm(vcenter=0, halfrange=0.075)
-	im = axes[0].imshow(dopp_errmod, origin="lower", interpolation="none", norm=norm, aspect = metadat['CDELT2']/metadat['CDELT1'])
+	im = axes[0].imshow(dopp_errmod.T, origin="lower", interpolation="none", norm=norm, aspect = metadat['CDELT2']/metadat['CDELT1'])
 	plt.colorbar(im, cax=cbaxis, label=metadat['BUNIT'], orientation="horizontal")
 
 	# axes[0].imshow(color_dopp_img(dopp_errmod[:,ymin:ymax].T, dopp_center+doppmin, dopp_center+doppmax, dopp_err_falloff[:,ymin:ymax].T), 
@@ -94,8 +94,8 @@ def amplitude_plot(linefits, axis=None, cbaxis=None, max_amp=None, ymin=0, ymax=
 	if(ymax is None): ymax = linefits['amplitudes'].data.squeeze().shape[1]
 	amp_plot = linefits['amplitudes'].data.squeeze()[:,ymin:ymax]
 	max_amp = 1.5*np.mean(amp_plot)+5*np.std(amp_plot)
-	norm = get_range(amp_plot, stre="log", imin=1, imax=max_amp)
-	im = axes[0].imshow(amp_plot, origin="lower", interpolation="none", norm=norm)
+	norm = get_range(amp_plot, stre="log", imin=1, imax=99.5)
+	im = axes[0].imshow(amp_plot.T, origin="lower", interpolation="none", norm=norm)
 	plt.colorbar(im, cax=cbaxis, orientation="horizontal", label=metadat['BUNIT'])
 
 	# axes[0].imshow(amp_plot.T**0.5,vmin=0,vmax=max_amp**0.5,
