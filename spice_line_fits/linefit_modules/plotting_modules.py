@@ -71,7 +71,7 @@ def doppler_plot(linefits,dopp_err_thold=0.025, axis=None, cbaxis=None, doppmin=
 	if(ymax is None): ymax = dopp_errmod.shape[1]
 	# if(ymax is None): ymax = dopp_errmod.shape[1]
 	# axes[0].imshow(color_dopp_img(dopp_errmod[:,ymin:ymax].T, dopp_center+doppmin, dopp_center+doppmax, dopp_err_falloff[:,ymin:ymax].T), aspect = metadat['CDELT2']/metadat['CDELT1'])
-	norm = mpl.colors.CenteredNorm(vcenter=0, halfrange=0.0075)
+	norm = mpl.colors.CenteredNorm(vcenter=0, halfrange=0.075)
 	im = axes[0].imshow(dopp_errmod, origin="lower", interpolation="none", norm=norm, aspect = metadat['CDELT2']/metadat['CDELT1'])
 	fig.colorbar(im, cax=cbaxis, label=metadat['BUNIT'], orientation="horizontal")
 
