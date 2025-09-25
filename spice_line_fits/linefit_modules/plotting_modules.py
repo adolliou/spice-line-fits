@@ -73,7 +73,7 @@ def doppler_plot(linefits,dopp_err_thold=0.025, axis=None, cbaxis=None, doppmin=
 	# axes[0].imshow(color_dopp_img(dopp_errmod[:,ymin:ymax].T, dopp_center+doppmin, dopp_center+doppmax, dopp_err_falloff[:,ymin:ymax].T), aspect = metadat['CDELT2']/metadat['CDELT1'])
 	norm = mpl.colors.CenteredNorm(vcenter=0, halfrange=0.075)
 	im = axes[0].imshow(dopp_errmod, origin="lower", interpolation="none", norm=norm, aspect = metadat['CDELT2']/metadat['CDELT1'])
-	fig.colorbar(im, cax=cbaxis, label=metadat['BUNIT'], orientation="horizontal")
+	plt.colorbar(im, cax=cbaxis, label=metadat['BUNIT'], orientation="horizontal")
 
 	# axes[0].imshow(color_dopp_img(dopp_errmod[:,ymin:ymax].T, dopp_center+doppmin, dopp_center+doppmax, dopp_err_falloff[:,ymin:ymax].T), 
 	# 			aspect = metadat['CDELT2']/metadat['CDELT1'], origin="lower", interpolation="none")
@@ -96,7 +96,7 @@ def amplitude_plot(linefits, axis=None, cbaxis=None, max_amp=None, ymin=0, ymax=
 	max_amp = 1.5*np.mean(amp_plot)+5*np.std(amp_plot)
 	norm = get_range(amp_plot, stre="log", imin=1, imax=max_amp)
 	im = axes[0].imshow(amp_plot, origin="lower", interpolation="none", norm=norm)
-	fig.colorbar(im, cax=cbaxis, orientation="horizontal", label=metadat['BUNIT'])
+	plt.colorbar(im, cax=cbaxis, orientation="horizontal", label=metadat['BUNIT'])
 
 	# axes[0].imshow(amp_plot.T**0.5,vmin=0,vmax=max_amp**0.5,
     #            aspect = metadat['CDELT2']/metadat['CDELT1'],cmap=plt.get_cmap('gray'), 
