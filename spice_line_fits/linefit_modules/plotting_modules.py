@@ -1,5 +1,6 @@
 import copy, numpy as np, matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
+from .skew_parameter_search import detrend_dopp
 
 def color_dopp_img(dopp,vmin,vmax,mask,gfac=1.0/2.2):
     dscal = mask*np.clip(2*(dopp-(vmin+vmax)*0.5)/(vmax-vmin),-1,1)
@@ -21,7 +22,6 @@ def doppler_plot(linefits,dopp_err_thold=0.025, axis=None, cbaxis=None, doppmin=
 	else:
 		axes = [axis]
 
-	from skew_parameter_search import detrend_dopp
 	dopp_err = linefits['centers'].uncertainty.array.squeeze()
 	metadat = linefits['centers'].meta
 	dopp_err_mask = (dopp_err > 0)*(dopp_err < err_thold)
