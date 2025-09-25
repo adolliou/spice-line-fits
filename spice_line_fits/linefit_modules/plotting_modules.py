@@ -94,7 +94,7 @@ def amplitude_plot(linefits, axis=None, cbaxis=None, max_amp=None, ymin=0, ymax=
 	if(ymax is None): ymax = linefits['amplitudes'].data.squeeze().shape[1]
 	amp_plot = linefits['amplitudes'].data.squeeze()[:,ymin:ymax]
 	max_amp = 1.5*np.mean(amp_plot)+5*np.std(amp_plot)
-	norm = get_range(amp_plot, stre="log", imin=1, imax=99.5)
+	norm = get_range(amp_plot, stre="log", imin=1, imax=max_amp)
 	im = axes[0].imshow(amp_plot, origin="lower", interpolation="none", norm=norm)
 	fig.colorbar(im, cax=cbaxis, orientation="horizontal", label=metadat['BUNIT'])
 
