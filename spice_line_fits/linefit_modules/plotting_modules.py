@@ -26,7 +26,7 @@ def doppler_plot(linefits,dopp_err_thold=0.025, axis=None, cbaxis=None, doppmin=
 	metadat = linefits['centers'].meta
 	dopp_err_mask = (dopp_err > 0)*(dopp_err < err_thold)
 	# dopp_detrend = detrend_dopp(linefits['centers'])
-	dopp_detrend = linefits['centers']
+	dopp_detrend = linefits['centers'].data.squeeze()
 	dopp_center = np.median(dopp_detrend[dopp_err_mask])
 	dopp_err_falloff = (dopp_err > 0)*np.clip(err_thold/dopp_err,None,1)**2
     
