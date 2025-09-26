@@ -60,25 +60,26 @@ def doppler_plot(linefits,dopp_err_thold=0.025, axis=None, cbaxis=None, doppmin=
 	dopp_err = linefits['centers'].uncertainty.array.squeeze()
 	metadat = linefits['centers'].meta
 	dopp_err_mask = (dopp_err > 0)*(dopp_err < err_thold)
-	dopp_detrend = detrend_dopp(linefits['centers'])
-	# dopp_detrend = linefits['centers'].data.squeeze()
+	# dopp_detrend = detrend_dopp(linefits['centers'])
+	dopp_detrend = linefits['centers'].data.squeeze()
 	dopp_center = np.median(dopp_detrend[dopp_err_mask])
 	dopp_err_falloff = (dopp_err > 0)*np.clip(err_thold/dopp_err,None,1)**2
     
 	dopp_errmod = copy.deepcopy(dopp_detrend) - dopp_center
-	# dopp_errmod = np.sign(dopp_errmod)*np.clip(np.abs(dopp_errmod)-np.abs(1.0*dopp_err),0,None)+dopp_center
+	dopp_errmod = np.sign(dopp_errmod)*np.clip(np.abs(dopp_errmod)-np.abs(1.0*dopp_err),0,None)+dopp_center
     
 	if(ymax is None): ymax = dopp_errmod.shape[1]
-	# if(ymax is None): ymax = dopp_errmod.shape[1]
 	# axes[0].imshow(color_dopp_img(dopp_errmod[:,ymin:ymax].T, dopp_center+doppmin, dopp_center+doppmax, dopp_err_falloff[:,ymin:ymax].T), aspect = metadat['CDELT2']/metadat['CDELT1'])
-	norm = mpl.colors.CenteredNorm(vcenter=0, halfrange=0.075)
-	im = axes[0].imshow(np.abs(dopp_errmod[:,ymin:ymax].T), origin="lower", interpolation="none", norm=norm, aspect = metadat['CDELT2']/metadat['CDELT1'], cmap="bwr")
-	plt.colorbar(im, cax=cbaxis, label=metadat['BUNIT'], orientation="horizontal")
 
-	# axes[0].imshow(color_dopp_img(dopp_errmod[:,ymin:ymax].T, dopp_center+doppmin, dopp_center+doppmax, dopp_err_falloff[:,ymin:ymax].T), 
-	# 			aspect = metadat['CDELT2']/metadat['CDELT1'], origin="lower", interpolation="none")
-	# if(cbaxis is not None):
-	# 	cbar_dopp_img(cbaxis, doppmin, doppmax, unit=metadat['BUNIT'])
+	axes[0].imshow(color_dopp_img(dopp_errmod[:,ymin:ymax].T, dopp_center+doppmin, dopp_center+doppmax, dopp_err_falloff[:,ymin:ymax].T), 
+				aspect = metadat['CDELT2']/metadat['CDELT1'], origin="lower", interpolation="none")
+	if(cbaxis is not None):
+		cbar_dopp_img(cbaxis, doppmin, doppmax, unit=metadat['BUNIT'])
+      
+	# norm = mpl.colors.CenteredNorm(vcenter=0, halfrange=0.075)
+	# im = axes[0].imshow(np.abs(dopp_errmod[:,ymin:ymax].T), origin="lower", interpolation="none", norm=norm, aspect = metadat['CDELT2']/metadat['CDELT1'], cmap="bwr")
+	# plt.colorbar(im, cax=cbaxis, label=metadat['BUNIT'], orientation="horizontal")
+
 
 def amplitude_plot(linefits, axis=None, cbaxis=None, max_amp=None, ymin=0, ymax=None):
 	if(axis is None):
