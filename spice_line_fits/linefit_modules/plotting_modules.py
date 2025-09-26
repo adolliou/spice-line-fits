@@ -75,10 +75,10 @@ def doppler_plot(linefits,dopp_err_thold=0.025, axis=None, cbaxis=None, doppmin=
 
 
       
-	axes[0].imshow(color_dopp_img(dopp_errmod[:,ymin:ymax].T, dopp_center+doppmin, dopp_center+doppmax, dopp_err_falloff[:,ymin:ymax].T), 
-				aspect = metadat['CDELT2']/metadat['CDELT1'], origin="lower", interpolation="none")
-	if(cbaxis is not None):
-		cbar_dopp_img(cbaxis, doppmin, doppmax, unit=metadat['BUNIT'])
+	# axes[0].imshow(color_dopp_img(dopp_errmod[:,ymin:ymax].T, dopp_center+doppmin, dopp_center+doppmax, dopp_err_falloff[:,ymin:ymax].T), 
+	# 			aspect = metadat['CDELT2']/metadat['CDELT1'], origin="lower", interpolation="none")
+	# if(cbaxis is not None):
+	# 	cbar_dopp_img(cbaxis, doppmin, doppmax, unit=metadat['BUNIT'])
       
 
 
