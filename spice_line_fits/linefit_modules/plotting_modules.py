@@ -63,10 +63,7 @@ def doppler_plot(linefits,dopp_err_thold=0.025, axis=None, cbaxis=None, doppmin=
 	# dopp_detrend = detrend_dopp(linefits['centers'])
 	dopp_detrend = linefits['centers'].data.squeeze()
 	dopp_center = np.median(dopp_detrend[dopp_err_mask])
-	dopp_err_falloff = (dopp_err > 0)*np.clip(err_thold/dopp_err,None,1)**2
-    
 	dopp_errmod = copy.deepcopy(dopp_detrend) - dopp_center
-	# dopp_errmod = np.sign(dopp_errmod)*np.clip(np.abs(dopp_errmod)-np.abs(1.0*dopp_err),0,None)+dopp_center
     
 	if(ymax is None): ymax = dopp_errmod.shape[1]
 	norm = mpl.colors.CenteredNorm(vcenter=0, halfrange=0.075)
@@ -74,6 +71,9 @@ def doppler_plot(linefits,dopp_err_thold=0.025, axis=None, cbaxis=None, doppmin=
 	plt.colorbar(im, cax=cbaxis, label=metadat['BUNIT'], orientation="horizontal")
 
 
+	# dopp_err_falloff = (dopp_err > 0)*np.clip(err_thold/dopp_err,None,1)**2
+
+	# dopp_errmod = np.sign(dopp_errmod)*np.clip(np.abs(dopp_errmod)-np.abs(1.0*dopp_err),0,None)+dopp_center
       
 	# axes[0].imshow(color_dopp_img(dopp_errmod[:,ymin:ymax].T, dopp_center+doppmin, dopp_center+doppmax, dopp_err_falloff[:,ymin:ymax].T), 
 	# 			aspect = metadat['CDELT2']/metadat['CDELT1'], origin="lower", interpolation="none")
